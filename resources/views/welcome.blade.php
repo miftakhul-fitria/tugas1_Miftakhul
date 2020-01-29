@@ -16,12 +16,30 @@
 
     .copy{
       font-size: 13px;
-      padding-top: 30px;
     }
+
+    body{
+      background-color: #84847C;
+    }
+    .text-center{
+      font-family: lobster;
+      padding: 30px 0 30px 0;
+      background-color: rgb(27, 26, 26);
+      font-size: 30px;
+      text-align: center;
+      color: white;
+      border-radius: 6px 6px 0 0;
+      margin-bottom: 50px;
+    }
+
+    .header{
+      background-color: #fff;
+      border-radius: 6px;    }
  </style>
 </head>
 
 <body>
+  <div class="header">
  <div class="row home">
     <div class="col-md-12">
      <h3 class="text-center">Halaman Register Laravel</h3>
@@ -47,7 +65,7 @@
             <input type="password" class="form-control" placeholder="Konfirmasi Password">
           </div>
 
-          <a href="https://laravel.com/" class="btn btn-success">Daftar</a>
+          <p align="center"><a href="https://laravel.com/" class="btn btn-success">Daftar</a></p>
 
           <div class="copy">
             <p align="center">&copy Miftakhul Fitria | 183140714111084 | 2020</p>
@@ -55,6 +73,7 @@
      </form>
    </div>
   </div>
+  
 </body>
 </html>
 
