@@ -88,8 +88,6 @@ Route::group(['middleware'=>'auth'],function(){
 	//cetak transaksi pesanan
 	Route::get('transaksi-pesanan/print/{id}','TransaksiPesananController@export');
 
-	Route::get('transaksi-pesanan/printlaporan','TransaksiPesananController@exportlaporan');
-
 	//untuk manage table nama_usaha
 	Route::get('nama-usaha','ProfileController@index');
 	Route::put('nama-usaha','ProfileController@update');
