@@ -13,8 +13,6 @@
                     <a href="{{ url('transaksi-pesanan/add') }}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah Transaksi</a>
 
                     <a href="#" class="btn btn-sm btn-flat btn-success btn-filter"><i class="fa fa-filter"></i> Filter Tanggal</a>
-
-                    <a href="{{ url('transaksi-pesanan/printlaporan') }}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Export Laporan</a>
                 </p>
             </div>
 
