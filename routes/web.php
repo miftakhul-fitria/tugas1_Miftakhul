@@ -22,6 +22,10 @@ Route::get("/logout","LoginController@logout")->name("logout");
 
 Route::resource("biodata", "BiodataController")->middleware("web");
 
+//Export excel
+Route::get("/biodata-mahasiswa","BiodataController@index")->name("biodata.index");
+Route::get('/biodata-mahasiswa/export_excel', 'BiodataController@export_excel');
+
 //List mahasiswa
 // Route::middleware("auth")->group(function(){
 	Route::get("/biodata-mahasiswa", "BiodataController@index")

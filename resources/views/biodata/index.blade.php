@@ -2,8 +2,9 @@
 
 @section("content")
 	<h1>Daftar Mahasiswa</h1>
-	<a href="{{ route('biodata.create') }}" class="btn btn-primary float-right">+Tambah Data</a>
 	<table class="table table-striped table-hover" id="datatable">
+		<a href="{{ route('biodata.create') }}" class="btn btn-primary float-right">+Tambah Data</a>
+		<a href="/biodata-mahasiswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
 		<thead>
 			<tr>
 				<th>ID</th>

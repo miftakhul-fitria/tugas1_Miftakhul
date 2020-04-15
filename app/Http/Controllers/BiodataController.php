@@ -8,6 +8,9 @@ use DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdateBiodata;
 use DataTables;
+use App\Exports\BiodataExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class BiodataController extends Controller
 {
@@ -25,6 +28,11 @@ class BiodataController extends Controller
         $mahasiswa = BiodataMahasiswa::all();
         return view("biodata.index", compact("mahasiswa"));
         //compact : proses parsing data dari controller ke view
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new BiodataExport, 'Biodata-Mahasiswa.xlsx');
     }
 
     /**
