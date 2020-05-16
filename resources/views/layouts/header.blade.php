@@ -2,9 +2,9 @@
 <?php
   $dt = \App\User::where('id',\Auth::user()->id)->first();
 ?>
-<a href="../../index2.html" class="logo">
+<a class="logo">
   <!-- mini logo for sidebar mini 50x50 pixels -->
-  <span class="logo-mini"><b>A</b>LT</span>
+  <span class="logo-mini"><b>A</b>HL</span>
   <!-- logo for regular state and mobile devices -->
   <span class="logo-lg"><b>{{ \Auth::user()->name }}</b></span>
 </a>
@@ -24,35 +24,32 @@
       <!-- Tasks: style can be found in dropdown.less -->
       
       <!-- User Account: style can be found in dropdown.less -->
-      
-
-      
-
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <span class="hidden-xs">{{\Auth::user()->name}}</span>
+          <img src="{{url('adminlte/dist/img/laundry3.jpg')}}" class="user-image" alt="User Image">
+          <span class="hidden-xs">Happy Laundry</span>
         </a>
+
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header">
+            <img src="{{url('adminlte/dist/img/laundry3.jpg')}}" class="img-circle" alt="User Image">
 
             <p>
-              {{\Auth::user()->name}}
-              <small>{{ \Auth::user()->name }}</small>
+              HAPPY LAUNDRY
+              <small>since Des. 2016</small>
             </p>
           </li>
+
+          <!-- Menu Footer-->
           <!-- Menu Footer-->
           <li class="user-footer">
-            <!-- <div class="pull-left">
-              <a href="{{ url('admin/profile') }}" class="btn btn-default btn-flat menu-sidebar">Profile</a>
-            </div> -->
             <div class="pull-right">
-            <a href="{{ url('keluar') }}" class="btn btn-default btn-flat menu-sidebar">Sign out</a>
+              <a href="{{ url('keluar') }}" class="btn btn-default btn-flat">Sign out</a>
             </div>
           </li>
         </ul>
       </li>
-      
     </ul>
   </div>
 

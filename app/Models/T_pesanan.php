@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class T_pesanan extends Model
 {
+    use SoftDeletes;
+
     protected $table = 't-pesanan';
     public $incrementing = false; //Karena kita tidak menggunakan auto_increment
 

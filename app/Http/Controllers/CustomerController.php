@@ -3,16 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Customer;
+
+use DataTables;
+use Yajra\DataTables\Html\Builder;
 
 class CustomerController extends Controller
 {
-    public function index(){
-    	$title = 'Halaman Customer';
-    	$data = Customer::orderBy('nama','asc')->get(); //untuk menampung data customer
+    public function index(Builder $builder){
+         if (request()->ajax()) {
+            return DataTables::of(Customer::query())->addColumn("action", function($data) {
+                return "
+                <a href='" . route("customer.edit", ["id" => $data->id]) . "' class='btn btn-warning btn-xs btn-edit' id='edit'><i class='fa fa-pencil-square-o'></i></a>
+                <a href='" . route("customer.delete", ["id" => $data->id]) . "' class='btn btn-danger btn-xs btn-hapus' id='delete'><i class='fa fa-trash-o'></i></a>
+                ";
+            })->addIndexColumn()->toJson();
+        }
 
-    	return view('customer.index',compact('title','data'));
+        $title = 'Halaman Customer';
+        $html = $builder->columns([
+                ['data' => 'DT_RowIndex', 'nama' => '#', 'title' => '#', 'defaultContent' => '', 'orderable' => false],
+                ['data' => 'email', 'email' => 'email', 'title' => 'Email'],
+                ['data' => 'nama', 'nama' => 'nama', 'title' => 'Nama'],
+                ['data' => 'no_hp', 'no_hp' => 'no_hp', 'title' => 'No HP'],
+                ['data' => 'alamat', 'alamat' => 'alamat', 'title' => 'Alamat'],
+                ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Created At'],
+                ['data' => 'updated_at', 'name' => 'updated_at', 'title' => 'Updated At'],
+                [
+                'defaultContent' => '',
+                'data'           => 'action',
+                'name'           => 'action',
+                'title'          => 'ACTION',
+                'render'         => null,
+                'orderable'      => false,
+                'searchable'     => false,
+                'exportable'     => false,
+                'printable'      => true,
+            ],
+            ]);
+    	return view('customer.index',compact('title','html'));
     }
 
     public function add(){

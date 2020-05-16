@@ -13,6 +13,10 @@ use App\Models\NamaUsaha;
 
 use PDF;
 
+use App\Exports\TransaksiExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 class TransaksiPesananController extends Controller
 {
     public function index(){
@@ -20,6 +24,11 @@ class TransaksiPesananController extends Controller
     	$data = T_pesanan::orderBy('created_at','desc')->get(); //untuk menampung data transaksi pesanan
 
     	return view('transaksi-pesanan.index',compact('title','data'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new TransaksiExport, 'Data-Transaksi-Pesanan.xlsx');
     }
 
     public function periode(Request $request){

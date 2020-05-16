@@ -1,7 +1,6 @@
 @extends('layouts.master')
- 
+
 @section('content')
- 
 <div class="row">
     <div class="col-md-12">
         <h4>{{ $title }}</h4>
@@ -49,7 +48,7 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Berat (kg)</label>
-                    <input type="number" name="berat" class="form-control" id="exampleInputEmail1" placeholder="Berat">
+                    <input type="decimal" name="berat" class="form-control" id="exampleInputEmail1" placeholder="Berat">
                   </div>
 
                   <div class="form-group">
@@ -93,11 +92,9 @@
         </div>
     </div>
 </div>
- 
 @endsection
  
 @section('scripts')
- 
 <script type="text/javascript">
     $(document).ready(function(){
  
@@ -110,5 +107,4 @@
  
     })
 </script>
- 
 @endsection

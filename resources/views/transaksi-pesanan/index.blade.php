@@ -1,7 +1,11 @@
 @extends('layouts.master')
- 
+
+@push("style")
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+@endpush
+
 @section('content')
- 
 <div class="row">
     <div class="col-md-12">
         <h4>{{ $title }}</h4>
@@ -13,8 +17,6 @@
                     <a href="{{ url('transaksi-pesanan/add') }}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah Transaksi</a>
 
                     <a href="#" class="btn btn-sm btn-flat btn-success btn-filter"><i class="fa fa-filter"></i> Filter Tanggal</a>
-
-                    <a href="{{ url('transaksi-pesanan/printlaporan') }}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Export Laporan</a>
                 </p>
             </div>
 
@@ -29,7 +31,7 @@
                            <th>STATUS PEMBAYARAN</th>
                            <th>BERAT</th>
                            <th>GRAND TOTAL</th>
-                           <th>ACTION STATUS</th>
+                           <th>ACTION STATUS PESANAN</th>
                            <th>CETAK INVOICE</th>
                            <th>CREATED AT</th>
                            <th>ACTION</th>
@@ -40,20 +42,25 @@
                                <td>{{ $e+1 }}</td>
                                <td>{{ $dt->customers->nama }}</td>
                                <td>{{ $dt->pakets->nama }}</td>
-                               <td>{{ $dt->status_pesanans->nama }}</td>
+                               <td>{{ $dt->status_pesanans->nama }}
+                               </td>
                                <td>{{ $dt->status_pembayarans->nama }}</td>
                                <td>{{ $dt->berat }} Kg</td>
                                <td>Rp. {{ number_format($dt->grand_total) }}</td>
                                <td>
                                 <div style="width: 60px">
+                                  <center>
                                   <a href="{{ url('transaksi-pesanan/naikkan-status/'.$dt->id) }}" class="btn btn-success btn-xs btn-edit" id="edit"><i class="fa fa-pencil-square-o"></i></a>
+                                  </center>
 
-                                  <a href="{{ url('transaksi-pesanan/naikkan-pembayaran/'.$dt->id) }}" class="btn btn-primary btn-xs btn-edit" id="edit"><i class="fa fa-pencil-square-o"></i></a>
+                                  <!-- <a href="{{ url('transaksi-pesanan/naikkan-pembayaran/'.$dt->id) }}" class="btn btn-primary btn-xs btn-edit" id="edit"><i class="fa fa-pencil-square-o"></i></a> -->
                                 </div>
                                </td>
                                <td>
                                  <div style="width: 60px">
+                                  <center>
                                   <a href="{{ url('transaksi-pesanan/print/'.$dt->id) }}" class="btn btn-warning btn-xs btn-edit" id="edit"><i class="fa fa-print"></i></a>
+                                  </center>
                                 </div>
                                </td>
                                <td>{{ date('d F Y',strtotime($dt->created_at)) }}</td>
@@ -135,5 +142,10 @@
  
     })
 </script>
- 
+
 @endsection
+
+@push("script")
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+@endpush

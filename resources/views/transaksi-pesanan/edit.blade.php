@@ -49,7 +49,7 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Berat (kg)</label>
-                    <input type="number" name="berat" class="form-control" id="exampleInputEmail1" placeholder="Berat" value="{{ $dt->berat }}">
+                    <input type="decimal" name="berat" class="form-control" id="exampleInputEmail1" placeholder="Berat" value="{{ $dt->berat }}">
                   </div>
 
                   <div class="form-group">

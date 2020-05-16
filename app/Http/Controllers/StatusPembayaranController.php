@@ -6,13 +6,41 @@ use Illuminate\Http\Request;
 
 use App\Models\StatusPembayaran;
 
+use DataTables;
+use Yajra\DataTables\Html\Builder;
+
 class StatusPembayaranController extends Controller
 {
-    public function index(){
-    	$title = 'Master Data Status Pembayaran';
-    	$data = StatusPembayaran::get(); //untuk menampung data status pembayaran
+    public function index(Builder $builder){
+        if (request()->ajax()) {
+            return DataTables::of(StatusPembayaran::query())->addColumn("action", function($data) {
+                return "
+                <a href='" . route("status-pembayaran.edit", ["id" => $data->id]) . "' class='btn btn-warning btn-xs btn-edit' id='edit'><i class='fa fa-pencil-square-o'></i></a>
+                <a href='" . route("status-pembayaran.delete", ["id" => $data->id]) . "' class='btn btn-danger btn-xs btn-hapus' id='delete'><i class='fa fa-trash-o'></i></a>
+                ";
+            })->addIndexColumn()->toJson();
+        }
 
-    	return view('status-pembayaran.index',compact('title','data'));
+        $title = 'Master Data Status Pembayaran';
+        $html = $builder->columns([
+            ['data' => 'nama', 'nama' => 'nama', 'title' => 'Nama'],
+            ['data' => 'urutan', 'urutan' => 'urutan', 'title' => 'Urutan'],
+            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Created At'],
+            ['data' => 'updated_at', 'name' => 'updated_at', 'title' => 'Updated At'],
+            [
+            'defaultContent' => '',
+            'data'           => 'action',
+            'name'           => 'action',
+            'title'          => 'ACTION',
+            'render'         => null,
+            'orderable'      => false,
+            'searchable'     => false,
+            'exportable'     => false,
+            'printable'      => true,
+        ],
+        ]);
+    	
+    	return view('status-pembayaran.index',compact('title','html'));
 
     }
 
@@ -76,6 +104,6 @@ class StatusPembayaranController extends Controller
             //notifikasi
             \Session::flash('gagal',$e->getMessage());
         }
-        return redirect('paket-laundry');
+        return redirect('status-pembayaran');
     }
 }

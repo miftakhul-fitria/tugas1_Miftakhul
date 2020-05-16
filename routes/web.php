@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('beranda');
+    return redirect('charts');
 });
 
 //Halaman ini hanya boleh di akses oleh orang yg sudah login
@@ -28,41 +28,52 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('paket-laundry/add','PaketController@store'); //logika add ke table
 
 	//edit
-	Route::get('paket-laundry/{id}','PaketController@edit');
-	Route::put('paket-laundry/{id}','PaketController@update');
+	Route::get('paket-laundry/{id}','PaketController@edit')
+	->name("paket-laundry.edit");
+	Route::put('paket-laundry/{id}','PaketController@update')
+	->name("paket-laundry.update");
 
 	//delete
-	Route::delete('paket-laundry/{id}','PaketController@delete');
+	Route::delete('paket-laundry/{id}','PaketController@delete')
+	->name("paket-laundry.delete");
 
 	//customer
 	Route::get('customer','CustomerController@index');
 	Route::get('customer/add','CustomerController@add');
 	Route::post('customer/add','CustomerController@store');
 
-	Route::get('customer/{id}','CustomerController@edit');
-	Route::put('customer/{id}','CustomerController@update');
+	Route::get('customer/{id}','CustomerController@edit')
+	->name("customer.edit");
+	Route::put('customer/{id}','CustomerController@update')
+	->name("customer.update");
 
-	Route::delete('customer/{id}','CustomerController@delete');
+	Route::delete('customer/{id}','CustomerController@delete')
+	->name("customer.delete");
 
 	//status pesanan
 	Route::get('status-pesanan','StatusPesananController@index');
 	Route::get('status-pesanan/add','StatusPesananController@add');
 	Route::post('status-pesanan/add','StatusPesananController@store');
 
-	Route::get('status-pesanan/{id}','StatusPesananController@edit');
-	Route::put('status-pesanan/{id}','StatusPesananController@update');
+	Route::get('status-pesanan/{id}','StatusPesananController@edit')
+	->name("status-pesanan.edit");
+	Route::put('status-pesanan/{id}','StatusPesananController@update')
+	->name("status-pesanan.update");
 
-	Route::delete('status-pesanan/{id}','StatusPesananController@delete');
+	Route::delete('status-pesanan/{id}','StatusPesananController@delete')->name("status-pesanan.delete");
 
 	//status pembayaran
 	Route::get('status-pembayaran','StatusPembayaranController@index');
 	Route::get('status-pembayaran/add','StatusPembayaranController@add');
 	Route::post('status-pembayaran/add','StatusPembayaranController@store');
 
-	Route::get('status-pembayaran/{id}','StatusPembayaranController@edit');
-	Route::put('status-pembayaran/{id}','StatusPembayaranController@update');
+	Route::get('status-pembayaran/{id}','StatusPembayaranController@edit')
+	->name("status-pembayaran.edit");
+	Route::put('status-pembayaran/{id}','StatusPembayaranController@update')
+	->name("status-pembayaran.update");
 
-	Route::delete('status-pembayaran/{id}','StatusPembayaranController@delete');
+	Route::delete('status-pembayaran/{id}','StatusPembayaranController@delete')
+	->name("status-pembayaran.delete");
 
 	//transaksi pesanan
 	Route::get('transaksi-pesanan','TransaksiPesananController@index');
@@ -72,12 +83,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('transaksi-pesanan/add','TransaksiPesananController@add');
 	Route::post('transaksi-pesanan/add','TransaksiPesananController@store');
 
-	Route::get('transaksi-pesanan/{id}','TransaksiPesananController@edit');
-	Route::put('transaksi-pesanan/{id}','TransaksiPesananController@update');
+	Route::get('transaksi-pesanan/{id}','TransaksiPesananController@edit')
+	->name("transaksi-pesanan.edit");
+	Route::put('transaksi-pesanan/{id}','TransaksiPesananController@update')
+	->name("transaksi-pesanan.update");
 
-	Route::delete('transaksi-pesanan/{id}','TransaksiPesananController@delete');
-
-	Route::delete('transaksi-pesanan/{id}','TransaksiPesananController@delete');
+	Route::delete('transaksi-pesanan/{id}','TransaksiPesananController@delete')
+	->name("transaksi-pesanan.delete");
 
 	//menaikkan status pesanan
 	Route::get('transaksi-pesanan/naikkan-status/{id}','TransaksiPesananController@naikkan_status');
@@ -88,11 +100,16 @@ Route::group(['middleware'=>'auth'],function(){
 	//cetak transaksi pesanan
 	Route::get('transaksi-pesanan/print/{id}','TransaksiPesananController@export');
 
-	Route::get('transaksi-pesanan/printlaporan','TransaksiPesananController@exportlaporan');
-
 	//untuk manage table nama_usaha
 	Route::get('nama-usaha','ProfileController@index');
 	Route::put('nama-usaha','ProfileController@update');
+
+	//untuk export transaksi
+	Route::get('export','TransaksiExportController@index');
+	Route::get('/export/export_excel', 'TransaksiExportController@export_excel');
+
+	//Dashboard Diagram
+	Route::get('charts','ChartsController@index');
 
 });
 
@@ -100,7 +117,7 @@ Auth::routes();
 
 Route::get('/home', function(){
 	//Setelah login, langsung masuk ke halaman beranda
-	return redirect('beranda');
+	return redirect('charts');
 });
 
 Route::get('keluar',function(){

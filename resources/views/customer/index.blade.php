@@ -1,7 +1,11 @@
 @extends('layouts.master')
+
+@push("style")
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+@endpush
  
 @section('content')
- 
 <div class="row">
     <div class="col-md-12">
         <h4>{{ $title }}</h4>
@@ -15,53 +19,15 @@
             </div>
 
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table-hover myTable">
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>EMAIL</th>
-                                <th>NAMA</th>
-                                <th>NO HP</th>
-                                <th>ALAMAT</th>
-                                <th>CREATED AT</th>
-                                <th>UPDATED AT</th>
-                                <th>ACTION</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($data as $e=>$dt)
-                            <tr>
-                                <td>{{ $e+1 }}</td>
-                                <td>{{ $dt->email }}</td>
-                                <td>{{ $dt->nama }}</td>
-                                <td>{{ $dt->no_hp }}</td>
-                                <td>{{ $dt->alamat }}</td>
-                                <td>{{ date('d F Y H:i:s', strtotime($dt->created_at)) }}</td>
-                                <td>{{ date('d F Y H:i:s', strtotime($dt->updated_at)) }}</td>
-                                <th>
-                                    <div style="width: 60px">
-                                      <a href="{{ url('customer/'.$dt->id) }}" class="btn btn-warning btn-xs btn-edit" id="edit"><i class="fa fa-pencil-square-o"></i></a>
-
-                                      <button href="{{ url('customer/'.$dt->id) }}" class="btn btn-danger btn-xs btn-hapus" id="delete"><i class="fa fa-trash-o"></i></button>
-                                    </div>
-                                </th>
-                            </tr>
-                            @endforeach    
-                        </tbody>
-                    </table>
-                </div>   
+                {!! $html->table() !!}
             </div>
 
         </div>
     </div>
 </div>
- 
 @endsection
  
 @section('scripts')
- 
 <script type="text/javascript">
     $(document).ready(function(){
  
@@ -74,5 +40,10 @@
  
     })
 </script>
- 
 @endsection
+
+@push("script")
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    {!! $html->scripts() !!}
+@endpush
